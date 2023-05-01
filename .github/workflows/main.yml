@@ -86,7 +86,7 @@ jobs:
       - name: Download typeset example document
         uses: actions/download-artifact@v2
         with:
-          name: declension-rules
+          name: example
       - name: Create a prerelease
         if: github.ref == 'refs/heads/main'
         uses: marvinpinto/action-automatic-releases@latest
