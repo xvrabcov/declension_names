@@ -1,0 +1,101 @@
+name: Produce declension rules and typeset example document
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+env:
+  DEBIAN_FRONTEND: noninteractive
+jobs:
+  produce-declension-rules:
+    name: Produce declension rules
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.11
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install GNU Make and wget
+        run: |
+          set -ex
+          apt-get -qy update
+          apt-get -qy install --no-install-recommends make wget
+      - name: Install Python requirements
+        run: |
+          set -ex
+          python -V
+          pip install -U pip
+          pip install -r requirements.txt
+          pip install flake8
+      - name: Style check
+        run: flake8
+      - name: Produce declension rules for Czech male names
+        run: make krestni-jmena-muzi.names krestni-jmena-muzi.decl
+      - name: Produce declension rules for Czech female names
+        run: make krestni-jmena-zeny.names krestni-jmena-zeny.decl
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: declension-rules
+          path: |
+            krestni-jmena-*.names
+            krestni-jmena-*.decl
+  typeset-example-document:
+    name: Typeset example document
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+    needs:
+      - produce-declension-rules
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install GNU Make and wget
+        run: |
+          set -ex
+          apt-get -qy update
+          apt-get -qy install --no-install-recommends make wget
+      - name: Download Czech male and female names
+        run: make krestni-jmena-muzi.txt krestni-jmena-zeny.txt
+      - name: Download declension rules for Czech male and female names
+        uses: actions/download-artifact@v2
+        with:
+          name: declension-rules
+      - name: Download randomnames package
+        run: make randomnames.lua randomnames.tex randomnames.sty
+      - name: Typeset paper
+        run: latexmk -lualatex example.tex
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: example
+          path: |
+            example.pdf
+  create-prerelease:
+    name: Create a prerelease
+    runs-on: ubuntu-latest
+    needs:
+      - produce-declension-rules
+      - typeset-example-document
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Download declension rules
+        uses: actions/download-artifact@v2
+        with:
+          name: declension-rules
+      - name: Download typeset example document
+        uses: actions/download-artifact@v2
+        with:
+          name: declension-rules
+      - name: Create a prerelease
+        if: github.ref == 'refs/heads/main'
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          title: The latest version
+          automatic_release_tag: latest
+          prerelease: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            krestni-jmena-*.names
+            krestni-jmena-*.decl
+            example.pdf

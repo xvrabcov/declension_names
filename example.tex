@@ -1,0 +1,24 @@
+\documentclass{article}
+
+\usepackage{randomnames}
+\newmodel{zena}
+\newmodel{muz}
+\inputnames{zena}{krestni-jmena-zeny.txt}
+\inputnames{muz}{krestni-jmena-muzi.txt}
+
+\usepackage{declension}
+\newdeclmodel{zena}
+\newdeclmodel{muz}
+\loaddata{zena}{krestni-jmena-zeny.decl}{krestni-jmena-zeny.names}
+\loaddata{muz}{krestni-jmena-muzi.decl}{krestni-jmena-muzi.names}
+
+\begin{document}
+
+Když se setkali na výstavě psů, \randomname[prefix=Ro,save=On]{muz}
+a \randomname[suffix=lie,save=Ona]{zena} si okamžitě uvědomili, že
+se už nikdy nebudou chtít rozloučit. \decline{zena}{\Ona}{1}{s} si
+uvědomila, že bez \decline{muz}{\On}{2}{s} nechce žít.
+\decline{muz}{\On}{1}{s} si ve stejný okamžik uvědomil, že
+s~\decline{zena}{\Ona}{7}{s} chce žít navždy.
+
+\end{document}

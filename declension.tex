@@ -1,0 +1,38 @@
+\ifx \ExplSyntaxOn \undefined
+  \input expl3-generic\relax
+\fi
+
+\ExplSyntaxOn
+
+\cs_new:Nn
+  \declension_new_model:n
+  {
+    \lua_now:e
+      {
+        local~declnames = require("declension")
+        declnames.new_model(" \lua_escape:e { #1 } ")
+      }
+  }
+
+\cs_new:Nn
+  \declension_load_data:nnn
+  {
+    \lua_now:e
+      {
+        local~declnames = require("declension")
+        declnames.load_data(" \lua_escape:e { #1 } ", " \lua_escape:e { #2 } ", " \lua_escape:e { #3 } ")
+      }
+  }
+
+\cs_new:Nn
+    \declension_decline:nnnn
+    {
+      \lua_now:e
+      {
+        local~declnames = require("declension")
+        local~result = declnames.decline(" \lua_escape:e { #1 } ", " \lua_escape:e { #2 } ", tonumber(" \lua_escape:e { #3 } "), " \lua_escape:e { #4 } ")
+        tex.print(result)
+      }
+    }
+
+\ExplSyntaxOff

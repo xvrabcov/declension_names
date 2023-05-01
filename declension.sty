@@ -1,0 +1,38 @@
+\input declension\relax
+
+\ProvidesExplPackage
+  {declension}%
+  {2023-05-01}%
+  {0.0.1}%
+  {Declension of Czech names}
+
+\RequirePackage{xparse}
+
+\NewDocumentCommand
+  { \newdeclmodel }
+  { m }
+  {
+    \declension_new_model:n
+    { #1 }
+  }
+
+\NewDocumentCommand
+  { \loaddata }
+  { m m m }
+  {
+    \declension_load_data:nnn
+      { #1 }
+      { #2 }
+      { #3 }
+  }
+
+\NewDocumentCommand
+  { \decline }
+  { m m m m }
+  {
+    \declension_decline:nnnn
+    { #1 }
+    { #2 }
+    { #3 }
+    { #4 }
+  }
