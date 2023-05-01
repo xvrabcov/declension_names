@@ -1,4 +1,4 @@
-# Model pro automatické sloňování českých jmen v LuaTeXu
+# Model pro automatické skloňování českých jmen v LuaTeXu
 
 Tento repositář obsahuje kód pro automatické skloňování českých jmen v LuaTeXu,
 který vznikl pro účely článku [*Nápadovník jmen postav pro tvůrčí psaní v
