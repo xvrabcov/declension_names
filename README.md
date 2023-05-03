@@ -11,7 +11,7 @@ $ sudo apt update
 $ sudo apt install make wget python3 texlive-full
 ```
 
-Nejprve si stáhneme seznam českých jmen mužů a žen ze serveru rodina.cz
+Nejprve si stáhneme seznam českých jmen mužů a žen z webu rodina.cz
 do souborů [`krestni-jmena-zeny.tex`][6] a [`krestni-jmena-muzi.tex`][7]:
 
 ``` bash
@@ -20,7 +20,7 @@ $ make krestni-jmena-muzi.tex
 ```
 
 Následně si nainstalujeme potřebné pythonové balíčky a na základě seznamu
-jmen sestavíme pomocí serverů wikislovník a sklonuj.cz pravidla pro skloňování,
+jmen sestavíme pomocí webů wikislovník a sklonuj.cz pravidla pro skloňování,
 která uložíme do souborů [`krestni-jmena-zeny.decl`][2],
 [`krestni-jmena-zeny.names`][3], [`krestni-jmena-muzi.decl`][4],
 [`krestni-jmena-muzi.names`][5].
