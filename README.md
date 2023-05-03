@@ -20,8 +20,8 @@ $ make krestni-jmena-muzi.tex
 ```
 
 Následně si nainstalujeme potřebné pythonové balíčky a na základě seznamu
-jmen sestavíme pomocí serveru sklonuj.cz pravidla pro skloňování, která
-uložíme do souborů [`krestni-jmena-zeny.decl`][2],
+jmen sestavíme pomocí serverů wikislovník a sklonuj.cz pravidla pro skloňování,
+která uložíme do souborů [`krestni-jmena-zeny.decl`][2],
 [`krestni-jmena-zeny.names`][3], [`krestni-jmena-muzi.decl`][4],
 [`krestni-jmena-muzi.names`][5].
 
